@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -75,5 +77,19 @@
             </div>
         </div>
     </div>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAWLu7cfbCPmEPxtiIN4ZbU-l34CcBn8IQ",
+            authDomain: "swe466-project.firebaseapp.com",
+            databaseURL: "https://swe466-project.firebaseio.com",
+            projectId: "swe466-project",
+            storageBucket: "swe466-project.appspot.com",
+            messagingSenderId: "146134959073"
+        };
+        firebase.initializeApp(config);
+        const db = firebase.firestore();
+    </script>
+    <script src="js/addResource.js"></script>
 </body>
 </html>
