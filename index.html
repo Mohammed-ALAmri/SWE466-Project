@@ -46,28 +46,8 @@
                 <th scope="col">Finish (Date)</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                </tr>
+            <tbody id="tasks-list">
+                
             </tbody>
         </table>
     </div>
@@ -92,34 +72,8 @@
                 <th scope="col">Cost/Use</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                </tr>
+            <tbody id="resources-list">
+                
             </tbody>
         </table>
     </div>
@@ -242,7 +196,6 @@
         };
         firebase.initializeApp(config);
         const db = firebase.firestore();
-        db.settings({ timestampsInSnapshots: true });
     </script>
     <script src="js/app.js"></script>
 </body>
