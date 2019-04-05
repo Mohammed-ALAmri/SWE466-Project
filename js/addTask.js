@@ -3,12 +3,24 @@ const addTaskForm = document.querySelector('#add-task');
 // Add task
 addTaskForm.addEventListener('submit', (event) => {
   event.preventDefault()
-  db.collection('tasks').add({
-    taskID: addTaskForm.taskID.value,
-    name: addTaskForm.taskName.value,
-    start: convertDateToString(addTaskForm.start.value),
-    duration: addTaskForm.duration.value
-  })
+
+  let docRef = db.collection('tasks').doc(`${addTaskForm.taskID.value}`);
+
+  docRef.get().then(function(doc) {
+    if (doc.exists) {
+      console.log("Error: A task with this ID already exisits!")
+    } else {
+      console.log("No such doc!")
+      db.collection('tasks').doc(`${addTaskForm.taskID.value}`).set({
+        taskID: addTaskForm.taskID.value,
+        name: addTaskForm.taskName.value,
+        start: convertDateToString(addTaskForm.start.value),
+        duration: addTaskForm.duration.value
+      });
+    }
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
 })
 
 function createDateFromString(dateAsString) {
