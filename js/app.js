@@ -32,6 +32,7 @@ function renderTask(doc){
 function renderResource(doc){
   let tr = document.createElement('tr');
   let th = document.createElement('th');
+  let tdName = document.createElement('td');
   let tdType = document.createElement('td');
   let tdMaterial = document.createElement('td');
   let tdMax = document.createElement('td');
@@ -41,7 +42,8 @@ function renderResource(doc){
 
   tr.setAttribute('data-id', doc.id);
 
-  th.textContent = doc.data().name;
+  th.textContent = doc.data().resourceID;
+  tdName.textContent = doc.data().name;
   tdType.textContent = doc.data().type;
   tdMaterial.textContent = doc.data().material;
   tdMax.textContent = doc.data().max;
@@ -51,6 +53,7 @@ function renderResource(doc){
 
 
   tr.appendChild(th);
+  tr.appendChild(tdName);
   tr.appendChild(tdType);
   tr.appendChild(tdMaterial);
   tr.appendChild(tdMax);
