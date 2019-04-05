@@ -107,3 +107,7 @@ background-color: #ea4335;
 color: white;
 background-color: #3b5998;
 }
+
+.error {
+  color: #ea4335;
+}
