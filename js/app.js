@@ -10,20 +10,27 @@ function renderTask(doc){
   let tdDuration = document.createElement('td');
   let tdStart = document.createElement('td');
   let tdFinish = document.createElement('td');
+  let assignResourcesButton = document.createElement('button');
+  let tdAssignRecourcesButton = document.createElement('td');
 
   tr.setAttribute('data-id', doc.id);
+  assignResourcesButton.setAttribute('onclick', `location.href='assignResources.html?taskID=${doc.id}';`);
 
   th.textContent = doc.data().taskID;
   tdName.textContent = doc.data().name;
   tdDuration.textContent = doc.data().duration;
   tdStart.textContent = doc.data().start;
   tdFinish.textContent = calculateFinishDate(tdStart.textContent, tdDuration.textContent);
+  assignResourcesButton.textContent = "Assign Resources";
+
+  tdAssignRecourcesButton.appendChild(assignResourcesButton);
 
   tr.appendChild(th);
   tr.appendChild(tdName);
   tr.appendChild(tdDuration);
   tr.appendChild(tdStart);
   tr.appendChild(tdFinish);
+  tr.appendChild(tdAssignRecourcesButton);
 
   tasksList.appendChild(tr);
 }
