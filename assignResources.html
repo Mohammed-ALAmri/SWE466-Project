@@ -1,6 +1,90 @@
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const taskID = urlParams.get('taskID');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Task</title>
+</head>
+<body>
 
-  console.log("The selected ID is: " + taskID);
-</script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html" >SWE 466 Project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="addTask.html">Add Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="addResource.html">Add Resource </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col" colspan="9" style="text-align: center;">Select a recource to assign to</th>
+                </tr>
+            </thead>
+            <thead class="table-active">
+                <tr>
+                <th scope="col">Resource ID</th>
+                <th scope="col">Resource Name</th>
+                <th scope="col">Type (List)</th>
+                <th scope="col">Material</th>
+                <th scope="col">Max (No. of Source)</th>
+                <th scope="col">St.Rate</th>
+                <th scope="col">Ovt.</th>
+                <th scope="col">Cost/Use</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="resources-list">
+                <!--
+                    The body is injected from Firestore
+                    using the file 'js/app.js'.
+                -->
+            </tbody>
+        </table>
+        <br>
+        <button id="assignButton" onclick="getCheckedboxes()">Assign</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAWLu7cfbCPmEPxtiIN4ZbU-l34CcBn8IQ",
+            authDomain: "swe466-project.firebaseapp.com",
+            databaseURL: "https://swe466-project.firebaseio.com",
+            projectId: "swe466-project",
+            storageBucket: "swe466-project.appspot.com",
+            messagingSenderId: "146134959073"
+        };
+        firebase.initializeApp(config);
+        const db = firebase.firestore();
+    </script>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const taskID = urlParams.get('taskID');
+
+      console.log("The selected ID is: " + taskID);
+    </script>
+    <script src="js/assignResources.js"></script>
+</body>
+</html>

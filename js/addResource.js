@@ -1,17 +1,56 @@
 const addResourceForm = document.querySelector('#add-resource');
+const errorMessage = document.querySelector('#error');
+
+// Hide error message by default
+errorMessage.style.display = "none";
+
+// When Any input field is focused, hide the error message
+function addEventListener(el, eventName, handler) {
+  if (el.addEventListener) {
+    el.addEventListener(eventName, handler);
+  } else {
+    el.attachEvent('on' + eventName, function(){
+      handler.call(el);
+    });
+  }
+}
+
+function addEventListeners(selector, type, handler) {
+  var elements = document.querySelectorAll(selector);
+  for (var i = 0; i < elements.length; i++) {
+    addEventListener(elements[i], type, handler);
+  }
+}
+
+addEventListeners('input', 'focus', function(e) {
+  errorMessage.style.display = "none";
+});
 
 // Add task
 addResourceForm.addEventListener('submit', (event) => {
   event.preventDefault()
-  db.collection('resources').add({
-    name: addResourceForm.name.value,
-    type: addResourceForm.type.value,
-    material: addResourceForm.material.value,
-    max: addResourceForm.max.value,
-    standardRate: addResourceForm.standardRate.value,
-    overtimeRate: addResourceForm.overtimeRate.value,
-    costUse: addResourceForm.costUse.value
-  })
+
+  let docRef = db.collection('resources').doc(`${addResourceForm.resourceID.value}`);
+
+  docRef.get().then(function(doc) {
+    if (doc.exists) {
+      errorMessage.style.display = "block";
+    } else {
+      console.log("No such doc!")
+      db.collection('resources').doc(`${addResourceForm.resourceID.value}`).set({
+        resourceID: addResourceForm.resourceID.value,
+        name: addResourceForm.name.value,
+        type: addResourceForm.type.value,
+        material: addResourceForm.material.value,
+        max: addResourceForm.max.value,
+        standardRate: addResourceForm.standardRate.value,
+        overtimeRate: addResourceForm.overtimeRate.value,
+        costUse: addResourceForm.costUse.value
+      });
+    }
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
 })
 
 function createDateFromString(dateAsString) {

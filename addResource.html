@@ -37,6 +37,11 @@
                         <h5 class="card-title text-center">Add Resource</h5>
                         <form id="add-resource" class="form-signin">
                             <div class="form-label-group">
+                                <input name="resourceID" type="text" id="resourceId" class="form-control" placeholder="Task ID" required >
+                                <label for="resourceId">Resource ID</label>
+                            </div>
+
+                            <div class="form-label-group">
                                 <input name="name" type="text" id="resourceName" class="form-control" placeholder="Resource Name " required >
                                 <label for="resourceName">Resource Name </label>
                             </div>
@@ -69,8 +74,13 @@
                             <div class="form-label-group">
                                 <input name="costUse" type="text" id="cost" class="form-control" placeholder="Cost/Use" required >
                                 <label for="cost">Cost/Use</label>
-                            </div>                                
+                            </div>                
+
                             <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit">Add Resource</button>
+
+                            <div id="error" class="error">
+                                Error: A recource with this ID already exisits!
+                            </div>
                         </form>
                     </div>
                 </div>
