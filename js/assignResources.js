@@ -124,7 +124,6 @@ function getAllResourcesIDs() {
     snapshot.docs.forEach(doc => {
       allResourcesIDsArray.push(doc.id)
     })
-    console.log(allResourcesIDsArray)
   })
 }
 
@@ -133,7 +132,6 @@ function getAllResourcesIDsForCurrentTask() {
     snapshot.docs.forEach(doc => {
       resourceIDsForTaskArray.push(doc.id.split("_")[1])
     })
-    console.log(resourceIDsForTaskArray)
   })
 }
 
