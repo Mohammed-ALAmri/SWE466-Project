@@ -1,6 +1,7 @@
 const tasksList = document.querySelector('#tasks-list');
 const addTaskForm = document.querySelector('#add-task');
 const resourcesList = document.querySelector('#resources-list');
+const mappingsList = document.querySelector('#mappings-list');
 
 // Create element and render task
 function renderTask(doc){
@@ -71,6 +72,40 @@ function renderResource(doc){
   resourcesList.appendChild(tr);
 }
 
+// Create element and render mapping
+function renderMapping(doc){
+  let tr = document.createElement('tr');
+  let th = document.createElement('th');
+  let tdName = document.createElement('td');
+  let tdDuration = document.createElement('td');
+  let tdStart = document.createElement('td');
+  let tdFinish = document.createElement('td');
+  let tdResourceName = document.createElement('td');
+
+  tr.setAttribute('data-id', doc.id);
+
+  db.collection('tasks').doc(doc.id.split("_")[0]).get().then(doc => {
+    th.textContent = doc.data().taskID;
+    tdName.textContent = doc.data().name;
+    tdDuration.textContent = doc.data().duration;
+    tdStart.textContent = doc.data().start;
+    tdFinish.textContent = calculateFinishDate(tdStart.textContent, tdDuration.textContent);
+  })
+
+  db.collection('resources').doc(doc.id.split("_")[1]).get().then(doc => {
+    tdResourceName.textContent = doc.data().name;
+  })
+
+  tr.appendChild(th);
+  tr.appendChild(tdName);
+  tr.appendChild(tdDuration);
+  tr.appendChild(tdStart);
+  tr.appendChild(tdFinish);
+  tr.appendChild(tdResourceName);
+
+  mappingsList.appendChild(tr);
+}
+
 
 // Get tasks
 db.collection('tasks').orderBy('taskID').get().then((snapshot) => {
@@ -83,6 +118,13 @@ db.collection('tasks').orderBy('taskID').get().then((snapshot) => {
 db.collection('resources').get().then((snapshot) => {
   snapshot.docs.forEach(doc => {
     renderResource(doc);
+  })
+})
+
+// Get mappings data
+db.collection('mappings').get().then(snapshot => {
+  snapshot.docs.forEach(doc => {
+    renderMapping(doc);
   })
 })
 
