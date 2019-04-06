@@ -97,7 +97,9 @@ function batchAddResources() {
     batch.set(db.collection('mappings').doc(mappingID), {taskID: mappingID.split("_")[0], resourceID: mappingID.split("_")[1]})
   })
 
-  batch.commit().then(console.log("Batch commited successfully."));
+  batch.commit().then(function() {
+    location.replace('index.html');
+  });
 }
 
 
