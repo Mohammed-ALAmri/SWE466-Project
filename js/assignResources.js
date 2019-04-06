@@ -1,6 +1,9 @@
 const resourcesList = document.querySelector('#resources-list');
 
-var resourceIDsArray = [];
+var checkedResourceIDsArray = [];
+var allResourcesIDsArray = [];
+var resourceIDsForTaskArray = [];
+var resourceIDsNotForTaskArray = [];
 
 // Pass the checkbox name to the function
 function getCheckedboxes() {
@@ -11,7 +14,7 @@ function getCheckedboxes() {
      // And stick the checked ones onto an array...
      if (checkboxes[i].checked) {
         checkboxesChecked.push(checkboxes[i]);
-        resourceIDsArray.push(checkboxes[i].id)
+        checkedResourceIDsArray.push(checkboxes[i].id)
      }
   }
 
@@ -65,16 +68,48 @@ function renderResource(doc){
 }
 
 // Get resource IDs not yet mapped to this task ID
-db.collection('mappings').where('taskID', '>', taskID).where('taskID', '<', taskID).get().then((snapshot) => {
-  if (snapshot.empty) {
-    console.log("Couldn't find any docs. Collection is probably empty. Rendering all resources...");
-    getAllResources()
-  } else {
-    snapshot.docs.forEach(doc => {
-      console.log("Doc is:" + doc)
-    })
+populateTable();
+
+async function populateTable() {
+
+  try {
+    // TODO: query the mappings with the taskID and save their resourceIDs in Array 1
+    await getAllResourcesIDsForCurrentTask()
+    // TODO: query all resource IDs and save them in Array 2
+    await getAllResourcesIDs()
+
+    let tasksLessThanSnapshot = await db.collection('mappings').where('taskID', '<', taskID).get();
+    let tasksGreaterThanSnapshot = await db.collection('mappings').where('taskID', '>', taskID).get();
+
+    if(tasksGreaterThanSnapshot.empty && tasksLessThanSnapshot.empty) {
+      getAllResources();
+    } else {
+      tasksLessThanSnapshot.docs.forEach(doc => {
+        checkedResourceIDsArray.push(doc.data().resourceID);
+      });
+      tasksGreaterThanSnapshot.docs.forEach(doc => {
+        checkedResourceIDsArray.push(doc.data().resourceID);
+      })
+    }
+
+    let uniqueResourceIDsArray = [...new Set(checkedResourceIDsArray)]
+    // TODO: remove the values in Array 1 from Array 2
+    resourceIDsNotForTaskArray = allResourcesIDsArray.filter(x => !resourceIDsForTaskArray.includes(x));
+    
+    getAllResourcesNotForTask()
+
+  } catch (error) {
+    console.log('Error getting documents', error);
   }
-})
+}
+
+function getAllResourcesNotForTask() {
+  resourceIDsNotForTaskArray.forEach(resourceID => {
+    db.collection('resources').doc(resourceID).get().then((doc) => {
+      renderResource(doc)
+    })
+  })
+}
 
 function getAllResources() {
   db.collection('resources').get().then((snapshot) => {
@@ -84,11 +119,29 @@ function getAllResources() {
   })
 }
 
+function getAllResourcesIDs() {
+  db.collection('resources').get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+      allResourcesIDsArray.push(doc.id)
+    })
+    console.log(allResourcesIDsArray)
+  })
+}
+
+function getAllResourcesIDsForCurrentTask() {
+  db.collection('mappings').where('taskID', '==', taskID).get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+      resourceIDsForTaskArray.push(doc.id.split("_")[1])
+    })
+    console.log(resourceIDsForTaskArray)
+  })
+}
+
 function batchAddResources() {
   var batch = db.batch();
   var mappingIDsArray = [];
 
-  resourceIDsArray.forEach(resourceID => {
+  checkedResourceIDsArray.forEach(resourceID => {
     let mappingID = taskID + "_" + resourceID;
     mappingIDsArray.push(mappingID);
   })
