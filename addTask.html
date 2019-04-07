@@ -37,7 +37,7 @@
                         <h5 class="card-title text-center">Add Task</h5>
                         <form id="add-task" class="form-signin">
                             <div class="form-label-group">
-                                <input name="taskID" type="text" id="taskId" class="form-control" placeholder="Task ID" required >
+                                <input name="taskID" type="number" id="taskId" class="form-control" placeholder="Task ID" required >
                                 <label for="taskId">Task ID</label>
                             </div>
 
@@ -47,8 +47,8 @@
                             </div>                                
 
                             <div class="form-label-group">
-                                <input name="duration" type="text" id="duration" class="form-control" placeholder="Duration" required >
-                                <label for="duration">Duration</label>
+                                <input name="duration" type="number" min="0" id="duration" class="form-control" placeholder="Duration" required >
+                                <label for="duration">Duration (In Days)</label>
                             </div>
             
                             <div class="form-label-group">
