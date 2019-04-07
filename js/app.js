@@ -2,6 +2,7 @@ const tasksList = document.querySelector('#tasks-list');
 const addTaskForm = document.querySelector('#add-task');
 const resourcesList = document.querySelector('#resources-list');
 const mappingsList = document.querySelector('#mappings-list');
+const totalsList = document.querySelector('#totals-list');
 
 // Create element and render task
 function renderTask(doc){
@@ -106,6 +107,43 @@ function renderMapping(doc){
   mappingsList.appendChild(tr);
 }
 
+// Create element and render totals
+function renderTotals(doc){
+  let tr = document.createElement('tr');
+  let th = document.createElement('th');
+  let tdName = document.createElement('td');
+  let tdDuration = document.createElement('td');
+  let tdStart = document.createElement('td');
+  let tdFinish = document.createElement('td');
+  let tdResourceName = document.createElement('td');
+  let tdTotalCost = document.createElement('td');
+
+  tr.setAttribute('data-id', doc.id);
+
+  db.collection('tasks').doc(doc.id.split("_")[0]).get().then(doc => {
+    th.textContent = doc.data().taskID;
+    tdName.textContent = doc.data().name;
+    tdDuration.textContent = doc.data().duration;
+    tdStart.textContent = doc.data().start;
+    tdFinish.textContent = calculateFinishDate(tdStart.textContent, tdDuration.textContent);
+  })
+
+  db.collection('resources').doc(doc.id.split("_")[1]).get().then(doc => {
+    tdResourceName.textContent = doc.data().name;
+    tdTotalCost.textContent = ((doc.data().costUse + doc.data().standardRate) * (doc.data().max / 100)).toFixed(2);
+  })
+
+  tr.appendChild(th);
+  tr.appendChild(tdName);
+  tr.appendChild(tdDuration);
+  tr.appendChild(tdStart);
+  tr.appendChild(tdFinish);
+  tr.appendChild(tdResourceName);
+  tr.appendChild(tdTotalCost);
+
+  totalsList.appendChild(tr);
+}
+
 
 // Get tasks
 db.collection('tasks').orderBy('taskID').get().then((snapshot) => {
@@ -125,6 +163,7 @@ db.collection('resources').get().then((snapshot) => {
 db.collection('mappings').get().then(snapshot => {
   snapshot.docs.forEach(doc => {
     renderMapping(doc);
+    renderTotals(doc);
   })
 })
 
