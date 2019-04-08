@@ -22,52 +22,44 @@
                     <a class="nav-link" href="addTask.html">Add Task</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="addResource.html">Add Resource</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Tasks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="resources.html">Resources</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="mappings.html">Tasks-Resources Mappings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="totals.html">Totals</a>
+                    <a class="nav-link" href="addResource.html">Add Resource </a>
                 </li>
             </ul>
         </div>
     </nav>
 
     <br>
-    
+
     <div class="container">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                <th scope="col" colspan="6" style="text-align: center;">Tasks Identification</th>
+                <th scope="col" colspan="9" style="text-align: center;">Select a recource to assign to</th>
                 </tr>
             </thead>
             <thead class="table-active">
                 <tr>
-                <th scope="col">Task ID</th>
-                <th scope="col">Task Name</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Start (Date)</th>
-                <th scope="col">Finish (Date)</th>
+                <th scope="col">Resource ID</th>
+                <th scope="col">Resource Name</th>
+                <th scope="col">Type (List)</th>
+                <th scope="col">Material</th>
+                <th scope="col">Max (No. of Source)</th>
+                <th scope="col">St.Rate</th>
+                <th scope="col">Ovt.</th>
+                <th scope="col">Cost/Use</th>
                 <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody id="tasks-list">
+            <tbody id="resources-list">
                 <!--
                     The body is injected from Firestore
                     using the file 'js/app.js'.
                 -->
             </tbody>
         </table>
+        <br>
+        <button id="assignButton" onclick="getCheckedboxes()">Assign</button>
     </div>
-    
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -87,6 +79,10 @@
         firebase.initializeApp(config);
         const db = firebase.firestore();
     </script>
-    <script src="js/app.js"></script>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const taskID = urlParams.get('taskID');
+    </script>
+    <script src="js/assignResources.js"></script>
 </body>
 </html>
