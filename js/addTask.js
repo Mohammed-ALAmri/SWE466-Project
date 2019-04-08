@@ -42,6 +42,8 @@ addTaskForm.addEventListener('submit', (event) => {
         name: addTaskForm.taskName.value,
         start: convertDateToString(addTaskForm.start.value),
         duration: addTaskForm.duration.value
+      }).then(function() {
+        location.replace('index.html');
       });
     }
   }).catch(function(error) {

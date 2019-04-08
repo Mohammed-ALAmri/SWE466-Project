@@ -26,7 +26,7 @@ addEventListeners('input', 'focus', function(e) {
   errorMessage.style.display = "none";
 });
 
-// Add task
+// Add resource
 addResourceForm.addEventListener('submit', (event) => {
   event.preventDefault()
 
@@ -46,6 +46,8 @@ addResourceForm.addEventListener('submit', (event) => {
         standardRate: addResourceForm.standardRate.value,
         overtimeRate: addResourceForm.overtimeRate.value,
         costUse: addResourceForm.costUse.value
+      }).then(function() {
+        location.replace('resources.html');
       });
     }
   }).catch(function(error) {
