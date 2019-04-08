@@ -34,7 +34,9 @@ function renderTask(doc){
   tr.appendChild(tdFinish);
   tr.appendChild(tdAssignRecourcesButton);
 
-  tasksList.appendChild(tr);
+  if (tasksList) {
+    tasksList.appendChild(tr);
+  }
 }
 
 // Create element and render resource
@@ -70,7 +72,9 @@ function renderResource(doc){
   tr.appendChild(tdOvertimeRate);
   tr.appendChild(tdCostUse);
 
-  resourcesList.appendChild(tr);
+  if (resourcesList) {
+    resourcesList.appendChild(tr);
+  }
 }
 
 // Create element and render mapping
@@ -104,7 +108,9 @@ function renderMapping(doc){
   tr.appendChild(tdFinish);
   tr.appendChild(tdResourceName);
 
-  mappingsList.appendChild(tr);
+  if (mappingsList) {
+    mappingsList.appendChild(tr);
+  }
 }
 
 // Create element and render totals
@@ -141,7 +147,9 @@ function renderTotals(doc){
   tr.appendChild(tdResourceName);
   tr.appendChild(tdTotalCost);
 
-  totalsList.appendChild(tr);
+  if (totalsList) {
+    totalsList.appendChild(tr);
+  }
 }
 
 
