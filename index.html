@@ -22,7 +22,19 @@
                     <a class="nav-link" href="addTask.html">Add Task</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="addResource.html">Add Resource </a>
+                    <a class="nav-link" href="addResource.html">Add Resource</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="resources.html">Resources</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mappings.html">Tasks-Resources Mappings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="totals.html">Totals</a>
                 </li>
             </ul>
         </div>
@@ -48,93 +60,6 @@
                 </tr>
             </thead>
             <tbody id="tasks-list">
-                <!--
-                    The body is injected from Firestore
-                    using the file 'js/app.js'.
-                -->
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-
-    <div class="container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                <th scope="col" colspan="8" style="text-align: center;">Resource Identification</th>
-                </tr>
-            </thead>
-            <thead class="table-active">
-                <tr>
-                <th scope="col">Resource ID</th>
-                <th scope="col">Resource Name</th>
-                <th scope="col">Type (List)</th>
-                <th scope="col">Material</th>
-                <th scope="col">Max (No. of Source)</th>
-                <th scope="col">St.Rate</th>
-                <th scope="col">Ovt.</th>
-                <th scope="col">Cost/Use</th>
-                </tr>
-            </thead>
-            <tbody id="resources-list">
-                <!--
-                    The body is injected from Firestore
-                    using the file 'js/app.js'.
-                -->
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    
-    <div class="container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                <th scope="col" colspan="6" style="text-align: center;">Mapping Resource to the Task</th>
-                </tr>
-            </thead>
-            <thead class="table-active">
-                <tr>
-                <th scope="col">Task ID</th>
-                <th scope="col">Task Name</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Start (Date)</th>
-                <th scope="col">Finish (Date)</th>
-                <th scope="col">Resource Name</th>
-                </tr>
-            </thead>
-            <tbody id="mappings-list">
-                <!--
-                    The body is injected from Firestore
-                    using the file 'js/app.js'.
-                -->
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-
-    <div class="container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col" colspan="7" style="text-align: center;">Whole Project Tasks and Total</th>
-                </tr>
-            </thead>
-            <thead class="table-active">
-                <tr>
-                <th scope="col">Task ID</th>
-                <th scope="col">Task Name</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Start (Date)</th>
-                <th scope="col">Finish (Date)</th>
-                <th scope="col">Resource Name</th>
-                <th scope="col">Total Cost</th>
-                </tr>
-            </thead>
-            <tbody id="totals-list">
                 <!--
                     The body is injected from Firestore
                     using the file 'js/app.js'.
